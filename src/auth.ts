@@ -146,8 +146,7 @@ export async function status(): Promise<void> {
     return;
   }
 
-  console.log("Authenticated");
+  console.log("✓ Authenticated");
   console.log(`Config: ${getConfigPath()}`);
-  console.log(`Convex URL: ${config.convexUrl}`);
   console.log(`API Key: ${config.apiKey.substring(0, 10)}...`);
 }
