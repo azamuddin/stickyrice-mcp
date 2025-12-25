@@ -45,4 +45,4 @@ export function deleteConfig(): void {
 }
 
 // Default Convex URL for Sticky Rice
-export const DEFAULT_CONVEX_URL = "https://glad-dragon-481.convex.cloud";
+export const DEFAULT_CONVEX_URL = "https://dapper-peacock-0.convex.cloud";
