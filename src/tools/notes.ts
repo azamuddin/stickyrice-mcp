@@ -23,8 +23,12 @@ export const noteTools: Tool[] = [
         },
         type: {
           type: "string",
-          enum: ["standard", "big_text"],
+          enum: ["standard", "big_text", "rich_text"],
           description: "Note type (default: standard)",
+        },
+        richtext_content: {
+          type: "string",
+          description: "Rich text content as Tiptap JSON (for rich_text type notes)",
         },
         titleSize: {
           type: "string",
@@ -90,8 +94,12 @@ export const noteTools: Tool[] = [
         },
         type: {
           type: "string",
-          enum: ["standard", "big_text"],
+          enum: ["standard", "big_text", "rich_text"],
           description: "Note type",
+        },
+        richtext_content: {
+          type: "string",
+          description: "Rich text content as Tiptap JSON (for rich_text type notes)",
         },
         titleSize: {
           type: "string",
@@ -189,6 +197,7 @@ export async function handleNoteTool(
       if (args.link !== undefined) createArgs.link = args.link;
       if (args.linkLabel !== undefined) createArgs.linkLabel = args.linkLabel;
       if (args.bigtext_config !== undefined) createArgs.bigtext_config = args.bigtext_config;
+      if (args.richtext_content !== undefined) createArgs.richtext_content = args.richtext_content;
 
       return client.mutation("mcp:createNote", createArgs);
     }
@@ -206,6 +215,7 @@ export async function handleNoteTool(
       if (args.link !== undefined) updates.link = args.link;
       if (args.linkLabel !== undefined) updates.linkLabel = args.linkLabel;
       if (args.bigtext_config !== undefined) updates.bigtext_config = args.bigtext_config;
+      if (args.richtext_content !== undefined) updates.richtext_content = args.richtext_content;
 
       return client.mutation("mcp:updateNote", updates);
     }

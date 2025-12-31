@@ -45,6 +45,11 @@ export const boardTools: Tool[] = [
           description:
             "The workspace ID to create the board in (optional, defaults to Personal)",
         },
+        type: {
+          type: "string",
+          enum: ["simple", "kanban"],
+          description: "Board type: 'simple' for chronological list, 'kanban' for column-based (default: kanban)",
+        },
       },
       required: ["title"],
     },
@@ -132,7 +137,8 @@ export async function handleBoardTool(
       if (!title) throw new Error("title is required");
       const order = args.order as number | undefined;
       const workspaceId = args.workspaceId as string | undefined;
-      return client.mutation("mcp:createBoard", { title, order, workspaceId });
+      const type = args.type as "simple" | "kanban" | undefined;
+      return client.mutation("mcp:createBoard", { title, order, workspaceId, type });
     }
 
     case "update_board": {

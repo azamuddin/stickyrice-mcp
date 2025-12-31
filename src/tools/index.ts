@@ -6,6 +6,7 @@ import { columnTools, handleColumnTool } from "./columns.js";
 import { noteTools, handleNoteTool } from "./notes.js";
 import { noteItemTools, handleNoteItemTool } from "./note-items.js";
 import { tagTools, handleTagTool } from "./tags.js";
+import { calendarTools, handleCalendarTool } from "./calendar.js";
 
 export function getTools(): Tool[] {
   return [
@@ -15,6 +16,7 @@ export function getTools(): Tool[] {
     ...noteTools,
     ...noteItemTools,
     ...tagTools,
+    ...calendarTools,
   ];
 }
 
@@ -38,13 +40,22 @@ export async function handleToolCall(
       result = await handleColumnTool(client, name, args);
     } else if (
       name.includes("note") &&
-      !name.includes("note_item")
+      !name.includes("note_item") &&
+      !name.includes("daily_notes") &&
+      !name.includes("weekly_notes") &&
+      !name.includes("monthly")
     ) {
       result = await handleNoteTool(client, name, args);
     } else if (name.includes("note_item")) {
       result = await handleNoteItemTool(client, name, args);
     } else if (name.includes("tag")) {
       result = await handleTagTool(client, name, args);
+    } else if (
+      name.includes("daily") ||
+      name.includes("weekly") ||
+      name.includes("monthly")
+    ) {
+      result = await handleCalendarTool(client, name, args);
     } else {
       throw new Error(`Unknown tool: ${name}`);
     }
